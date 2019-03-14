@@ -33,8 +33,6 @@ class IndexController extends Controller
         $file = $this->request->get('file');
         $file = $this->storage->read($file);
 
-        $this->storage->getMeta($file);
-
         $this->data['env'] = $file;
         $this->data['envName'] = basename($file->path());
 

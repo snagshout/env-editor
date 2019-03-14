@@ -30,6 +30,6 @@ class AmazonStorage extends AbstractStorage implements EnvFileStorageInterface
     public function getMeta($path)
     {
         $s3 = $this->filesystem->getDriver()->getAdapter();
-        dd($s3->getMetadata($path->path()));
+        return $s3->getMetadata($path->path());
     }
 }
