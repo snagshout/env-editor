@@ -20,10 +20,7 @@ class AmazonStorage extends AbstractStorage implements EnvFileStorageInterface
     {
         $this->filesystem = $adapter->getFilesystem();
         $this->adapter = $adapter;
-
-        if ($root != false) {
-            $this->setRootPath($adapter->getBucket());
-        }
+        $this->setRootPath($adapter->getBucket());
     }
 
     public function setRootPath($path)
