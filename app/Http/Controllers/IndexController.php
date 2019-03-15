@@ -31,7 +31,8 @@ class IndexController extends Controller
     public function edit()
     {
         $file = $this->request->get('file');
-        $file = $this->storage->read($file);
+        $version = $this->request->get('version', null);
+        $file = $this->storage->read($file, $version);
 
         $this->data['env'] = $file;
         $this->data['envName'] = basename($file->path());
@@ -43,7 +44,6 @@ class IndexController extends Controller
     {
         $input = $request->validated();
         $input['lines'] = normalize_key_value_array($input['lines']);
-
 
         $file = $this->storage->read($input['path']);
         $file = $file->withContents($input['lines']);
@@ -78,5 +78,17 @@ class IndexController extends Controller
         }
 
         return redirect()->route('list_env_files');
+    }
+
+    public function history()
+    {
+        $file = $this->request->get('file');
+        $env = $this->storage->read($file);
+
+        $this->data['env'] = $env;
+        $this->data['envName'] = $file;
+        $this->data['versions'] = $this->storage->getVersions($file);
+
+        return view('history', $this->data);
     }
 }

@@ -25,6 +25,8 @@
                 <li class="list-group-item">
                     {{ $env->path() }}
                     <div class="float-right">
+                        <a href="{{ route('env_file_history', ['file' => $env->path()]) }}" class="btn btn-sm btn-info">
+                            <i class="fas fa-history"></i></a>
                         <a href="{{ route('edit_env_file', ['file' => $env->path()]) }}" class="btn btn-sm btn-primary">
                             <i class="far fa-edit"></i></a>
                         <a href="{{ route('delete_env_file', ['file' => $env->path()]) }}" class="btn btn-sm btn-danger">
