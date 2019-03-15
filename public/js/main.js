@@ -6,6 +6,10 @@ $(document).ready(function(){
         var key = $('.env-line-form').find('.line-key').val()
         var value = $('.env-line-form').find('.line-value').val()
 
+        if (key == false && value == false) {
+            return false
+        }
+
         $('.env-line-form').find('.line-key').val('')
         $('.env-line-form').find('.line-value').val('')
 
