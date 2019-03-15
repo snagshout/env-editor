@@ -31,6 +31,9 @@ class EnvFile implements EnvFileInterface
                 $contents .= "$value" . PHP_EOL;
                 continue;
             }
+
+            $key = $this->normalizeKey($key);
+            $value = trim($value);
             $contents .= "{$key}={$value}" . PHP_EOL;
         }
 
