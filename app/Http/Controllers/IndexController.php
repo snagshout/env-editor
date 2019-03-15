@@ -42,6 +42,8 @@ class IndexController extends Controller
     public function update(EnvFileRequest $request)
     {
         $input = $request->validated();
+        $input['lines'] = normalize_key_value_array($input['lines']);
+
 
         $file = $this->storage->read($input['path']);
         $file = $file->withContents($input['lines']);
@@ -59,8 +61,9 @@ class IndexController extends Controller
     public function store(EnvFileRequest $request)
     {
         $input = $request->validated();
-        $file = $this->storage->new($input['path'], $input['lines']);
+        $input['lines'] = normalize_key_value_array($input['lines']);
 
+        $file = $this->storage->new($input['path'], $input['lines']);
         $this->storage->write($file);
 
         return redirect()->route('edit_env_file', ['file' => $input['path']]);

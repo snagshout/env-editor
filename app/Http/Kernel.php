@@ -60,7 +60,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'env.normalize' => \App\Http\Middleware\EnvNormalize::class,
         'env.exists' => \App\Http\Middleware\EnvExists::class,
         'env.load_root' => \App\Http\Middleware\EnvLoadRoot::class,
     ];
