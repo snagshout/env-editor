@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EnvFileRequest extends FormRequest
 {
@@ -27,6 +28,10 @@ class EnvFileRequest extends FormRequest
             'path' => 'required|string',
             'lines' => 'array',
             'remove_key' => 'array',
+            'lines.*.key' => Rule::requiredIf(function(){
+                $lines = $this->get('lines', []);
+                return count($lines) > 0;
+            }),
         ];
     }
 }
