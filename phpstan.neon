@@ -1,0 +1,8 @@
+parameters:
+	level: 7
+	paths:
+		- app
+		- tests
+	ignoreErrors:
+		- '#Call to an undefined method Illuminate\\.*#'
+		- '#Call to an undefined method League\\.*#'

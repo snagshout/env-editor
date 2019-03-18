@@ -1,0 +1,15 @@
+language: php
+php:
+- 7.2
+install:
+- composer install
+script: './resources/scripts/travis/script.sh'
+after_script:
+- php vendor/bin/codacycoverage clover build/coverage.xml
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - vendor
+  - $HOME/.composer/cache
