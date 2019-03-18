@@ -1,11 +1,6 @@
 language: php
 php:
 - 7.2
-services:
-  mariadb: '10.3'
-before_install:
-- sleep 10
-- mysql -e 'CREATE DATABASE IF NOT EXISTS yaarif_tests;'
 install:
 - composer install
 script: './resources/scripts/travis/script.sh'
@@ -17,4 +12,4 @@ branches:
 cache:
   directories:
   - vendor
-  - "$CACHE_COMPOSER"
+  - $HOME/.composer/cache
