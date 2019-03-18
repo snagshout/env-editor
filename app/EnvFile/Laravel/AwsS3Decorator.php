@@ -2,8 +2,8 @@
 
 namespace App\EnvFile\Laravel;
 
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use Illuminate\Filesystem\FilesystemAdapter;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class AwsS3Decorator extends AwsS3Adapter
 {
@@ -40,6 +40,6 @@ class AwsS3Decorator extends AwsS3Adapter
         $response = parent::read($path);
         unset($this->options['VersionId']);
 
-        return isset($response['contents']) ? $response['contents'] : null;
+        return data_get($response, 'contents');
     }
 }
