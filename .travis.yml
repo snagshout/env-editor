@@ -1,0 +1,27 @@
+language: php
+addons:
+  apt:
+    packages:
+    - python-pip
+php:
+- 7.2
+services:
+  mariadb: '10.3'
+before_install:
+- sudo apt-get -qq update
+- cp .torrc $HOME/.torrc
+- sudo apt-get install -y tor
+- sleep 10
+- mysql -e 'CREATE DATABASE IF NOT EXISTS yaarif_tests;'
+install:
+- composer install
+script: './resources/scripts/travis/script.sh'
+after_script:
+- php vendor/bin/codacycoverage clover build/coverage.xml
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - vendor
+  - "$CACHE_COMPOSER"
