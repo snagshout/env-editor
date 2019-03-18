@@ -3,7 +3,7 @@
     <description>A custom coding standard for Snagshout</description>
 
     <file>config</file>
-    <file>src</file>
+    <file>app</file>
     <file>tests</file>
     <rule ref="PSR2"/>
     <rule ref="Generic.PHP.ForbiddenFunctions">
