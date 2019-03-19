@@ -18,7 +18,12 @@ class HelperTest extends TestCase
         ];
 
         $output = normalize_key_value_array($input);
-        $expected = ["line1" => "the quick", "line2" => "brown fox", "line3" => "jumps over", "line4" => "the lazy dog"];
+        $expected = [
+            "line1" => "the quick",
+            "line2" => "brown fox",
+            "line3" => "jumps over",
+            "line4" => "the lazy dog"
+        ];
 
         $this->assertEquals($output, $expected);
     }
@@ -33,7 +38,11 @@ class HelperTest extends TestCase
         ];
 
         $output = normalize_key_value_array($input);
-        $expected = ["line2" => "brown fox", "line3" => "jumps over", "line4" => "the lazy dog"];
+        $expected = [
+            "line2" => "brown fox",
+            "line3" => "jumps over",
+            "line4" => "the lazy dog"
+        ];
 
         $this->assertEquals($output, $expected);
     }
@@ -48,7 +57,12 @@ class HelperTest extends TestCase
         ];
 
         $output = normalize_key_value_array($input);
-        $expected = ["line1" => null, "line2" => "brown fox", "line3" => "jumps over", "line4" => "the lazy dog"];
+        $expected = [
+            "line1" => null,
+            "line2" => "brown fox",
+            "line3" => "jumps over",
+            "line4" => "the lazy dog"
+        ];
 
         $this->assertEquals($output, $expected);
     }
