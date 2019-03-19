@@ -48,7 +48,6 @@ class EnvFile implements EnvFileInterface
     public function has($key)
     {
         $key = $this->normalizeKey($key);
-
         return isset($this->contents[$key]);
     }
 
@@ -75,6 +74,8 @@ class EnvFile implements EnvFileInterface
 
     public function delete($key)
     {
+        $key = $this->normalizeKey($key);
+
         if (is_numeric($key) == false || $this->has($key) == true) {
             unset($this->contents[$key]);
         }
@@ -86,7 +87,9 @@ class EnvFile implements EnvFileInterface
             return false;
         }
 
-        $this->contents = $contents;
+        foreach ($contents as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 
     protected function normalizeKey($key)
