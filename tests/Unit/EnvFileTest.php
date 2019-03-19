@@ -9,53 +9,48 @@ use App\EnvFile\EnvFile;
 
 class EnvFileTest extends TestCase
 {
-    public function contentProvider()
+    protected function createEnvFile($name)
     {
-        return [
-            [
-                "# this is a comment",
-                "line1" => "the quick",
-                "line2" => "brown fox",
-                "line3" => "jumps over",
-                "line4" => "the lazy dog"
-            ]
-        ];
+        return new EnvFile($name, [
+            "# this is a comment",
+            "line1" => "the quick",
+            "line2" => "brown fox",
+            "line3" => "jumps over",
+            "line4" => "the lazy dog"
+        ]);
     }
 
     public function testPath()
     {
-        $env = new EnvFile("foo");
+        $env = $this->createEnvFile("foo");
 
         $this->assertEquals($env->path(), "foo");
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testContents($content)
+    public function testContents()
     {
-        $env = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
 
         $this->assertEquals($env->contents(), "LINE1=the quick\nLINE2=brown fox\nLINE3=jumps over\nLINE4=the lazy dog");
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testWithContents($content)
+    public function testWithContents()
     {
         $env = new EnvFile("foo");
-        $dupe = $env->withContents($content);
+        $dupe = $env->withContents([
+            "# this is a comment",
+            "line1" => "the quick",
+            "line2" => "brown fox",
+            "line3" => "jumps over",
+            "line4" => "the lazy dog"
+        ]);
 
         $this->assertNotEquals($env, $dupe);
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testHas($content)
+    public function testHas()
     {
-        $env = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
 
         $this->assertFalse($env->has("0"));
         $this->assertTrue($env->has("line1"));
@@ -63,12 +58,9 @@ class EnvFileTest extends TestCase
         $this->assertTrue($env->has("\tLiNe1\n"));
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testSet($content)
+    public function testSet()
     {
-        $env = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
 
         $env->set("0", "# change the comment");
         $env->set("line1", "foo");
@@ -81,12 +73,9 @@ class EnvFileTest extends TestCase
         $this->assertEquals($env->get("line3"), "baz");
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testGet($content)
+    public function testGet()
     {
-        $env = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
 
         $this->assertNull($env->get("0"));
         $this->assertEquals($env->get("line1"), "the quick");
@@ -94,13 +83,10 @@ class EnvFileTest extends TestCase
         $this->assertEquals($env->get("\tLiNe1\n"), "the quick");
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testDelete($content)
+    public function testDelete()
     {
-        $env = new EnvFile("foo", $content);
-        $dupe = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
+        $dupe = $this->createEnvFile("foo");
 
         $env->delete("0");
         $this->assertEquals($env, $dupe);
@@ -109,12 +95,9 @@ class EnvFileTest extends TestCase
         $this->assertNotEquals($env, $dupe);
     }
 
-    /**
-     * @dataProvider contentProvider
-     */
-    public function testToArray($content)
+    public function testToArray()
     {
-        $env = new EnvFile("foo", $content);
+        $env = $this->createEnvFile("foo");
 
         $array = $env->toArray();
         $dupe = new EnvFile("bar", $array);
