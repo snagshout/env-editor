@@ -9,16 +9,22 @@ use App\Http\Requests\EnvFileRequest;
 
 class IndexController extends Controller
 {
+    /**
+     * @var EnvFileStorageInterface
+     */
     protected $storage;
 
     protected $request;
 
     protected $data = [];
 
-    public function __construct(EnvFileStorageInterface $storage, Request $request)
-    {
+    public function __construct(
+        EnvFileStorageInterface $storage,
+        Request $request
+    ) {
         $this->storage = $storage;
         $this->request = $request;
+        $this->data['bucket'] = $this->storage->getRootPath();
     }
 
     public function index()
@@ -50,7 +56,7 @@ class IndexController extends Controller
 
         $this->storage->write($file);
 
-        return redirect()->route('edit_env_file', ['file' => $input['path']]);
+        return redirect()->route('edit_env_file', ['file' => $input['path'], 'bucket' => $this->data['bucket']]);
     }
 
     public function create()
@@ -66,18 +72,18 @@ class IndexController extends Controller
         $file = $this->storage->new($input['path'], $input['lines']);
         $this->storage->write($file);
 
-        return redirect()->route('edit_env_file', ['file' => $input['path']]);
+        return redirect()->route('edit_env_file', ['file' => $input['path'], 'bucket' => $this->data['bucket']]);
     }
 
     public function destroy()
     {
-        $name = $this->request->get('file');
+        $name = (string) $this->request->get('file');
 
-        if ($name != false) {
+        if ($name) {
             $this->storage->delete($name);
         }
 
-        return redirect()->route('list_env_files');
+        return redirect()->route('list_env_files', ['bucket' => $this->data['bucket']]);
     }
 
     public function history()

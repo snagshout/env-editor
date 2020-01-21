@@ -2,8 +2,6 @@
 
 namespace App\EnvFile;
 
-use App\EnvFile\EnvFileInterface;
-
 interface EnvFileStorageInterface
 {
     /**

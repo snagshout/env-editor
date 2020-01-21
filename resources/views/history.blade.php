@@ -22,7 +22,7 @@
                 <li class="list-group-item">
                     {{ $version['date']->format("m-d-Y H:i:s") }}
                     <div class="float-right">
-                        <a href="{{ route('edit_env_file', ['file' => $env->path(), 'version' => $version['version']]) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('edit_env_file', ['file' => $env->path(), 'bucket' => $bucket, 'version' => $version['version']]) }}" class="btn btn-sm btn-primary">
                             <i class="far fa-edit"></i></a>
                     </div>
                 </li>
