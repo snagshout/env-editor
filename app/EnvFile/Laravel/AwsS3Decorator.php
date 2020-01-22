@@ -16,8 +16,15 @@ class AwsS3Decorator extends AwsS3Adapter
         $this->config = $config;
         $this->filesystem = $filesystem;
 
-        $adapter = $filesystem->getDriver()->getAdapter();
-        parent::__construct($adapter->getClient(), $adapter->getBucket(), $adapter->getPathPrefix(), $this->config);
+        /** @var AwsS3Adapter $adapter */
+        $adapter = $filesystem->getDriver()
+            ->getAdapter();
+        parent::__construct(
+            $adapter->getClient(),
+            $adapter->getBucket(),
+            (string) $adapter->getPathPrefix(),
+            $this->config
+        );
     }
 
     /**

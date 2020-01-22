@@ -26,6 +26,7 @@ class AmazonStorage extends AbstractStorage implements EnvFileStorageInterface
     public function setRootPath($path)
     {
         $this->adapter->setBucket($path);
+
         $this->rootPath = $path;
     }
 
@@ -37,7 +38,7 @@ class AmazonStorage extends AbstractStorage implements EnvFileStorageInterface
         return new EnvFile($path, $contents);
     }
 
-    public function getVersions($path)
+    public function getVersions($path) : array
     {
         $bucket = $this->adapter->getBucket();
         $client = $this->adapter->getClient();

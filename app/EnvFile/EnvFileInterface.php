@@ -40,7 +40,7 @@ interface EnvFileInterface
      * Set key
      *
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      */
     public function set($key, $value);
 

@@ -8,6 +8,7 @@
             <form method="post" action="{{ route('update_env_file') }}">
                 @csrf
                 <input type="hidden" name="path" value="{{ $env->path() }}" />
+                <input type="hidden" name="bucket" value="{{ $bucket }}" />
                 <span class="remove-key-container"><input type="hidden" id="remove-key-tpl" /></span>
 
                 <div class="row mb-3 sticky-top">
@@ -17,7 +18,9 @@
                                 <div class="lead">{{ $envName }}</div>
                             </div>
                             <div class="col-2 bg-dark text-white p-3 text-right">
-                                <a class="btn btn-success btn-sm " href="{{ route('list_env_files') }}"><i class="fas fa-step-backward"></i></a>
+                                <a class="btn btn-success btn-sm " href="{{ route('list_env_files', compact('bucket'))
+                                }}"><i
+                                            class="fas fa-step-backward"></i></a>
                                 <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save"></i> Save</button>
                             </div>
                         </div>

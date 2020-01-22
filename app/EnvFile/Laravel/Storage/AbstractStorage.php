@@ -5,9 +5,13 @@ namespace App\EnvFile\Laravel\Storage;
 use App\EnvFile\EnvFile;
 use App\EnvFile\EnvFileInterface;
 use App\EnvFile\EnvFileStorageInterface;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 abstract class AbstractStorage implements EnvFileStorageInterface
 {
+    /**
+     * @var Filesystem
+     */
     protected $filesystem;
 
     protected $rootPath;
