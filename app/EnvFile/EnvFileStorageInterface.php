@@ -17,7 +17,7 @@ interface EnvFileStorageInterface
      * Create new env file
      *
      * @param  string $name
-     * @param  array  $contents
+     * @param  array $contents
      *
      * @return EnvFileInterface
      */

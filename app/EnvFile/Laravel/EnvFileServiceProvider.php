@@ -16,7 +16,7 @@ class EnvFileServiceProvider extends ServiceProvider
             function ($app) {
                 config()->set(
                     'filesystems.disks.s3.bucket',
-                    request()->get('bucket', config('filesystems.disks.s3.bucket'))
+                    request('bucket', config('filesystems.disks.s3.bucket'))
                 );
                 $filesystem = $app[FilesystemFactory::class]->disk('s3');
                 $config = $app['config']["filesystems.disks.s3"];

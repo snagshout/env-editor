@@ -2,8 +2,6 @@
 
 namespace App\EnvFile;
 
-use App\EnvFile\EnvFileInterface;
-
 class EnvFile implements EnvFileInterface
 {
     protected $path = null;
@@ -48,6 +46,7 @@ class EnvFile implements EnvFileInterface
     public function has($key)
     {
         $key = $this->normalizeKey($key);
+
         return isset($this->contents[$key]);
     }
 
@@ -76,23 +75,19 @@ class EnvFile implements EnvFileInterface
     {
         $key = $this->normalizeKey($key);
 
-        if (is_numeric($key) == false || $this->has($key) == true) {
+        if (!is_numeric($key) || $this->has($key)) {
             unset($this->contents[$key]);
         }
     }
 
     protected function setContents(array $contents)
     {
-        if ($contents == false) {
-            return false;
-        }
-
         foreach ($contents as $key => $value) {
             $this->set($key, $value);
         }
     }
 
-    protected function normalizeKey($key)
+    protected function normalizeKey($key) : string
     {
         $key = mb_strtoupper($key);
         $key = trim($key);
@@ -100,10 +95,14 @@ class EnvFile implements EnvFileInterface
         return $key;
     }
 
-    public function toArray()
+    public function toArray() : array
     {
-        return array_filter($this->contents, function ($value, $key) {
-            return (is_numeric($key) == false);
-        }, ARRAY_FILTER_USE_BOTH);
+        return array_filter(
+            $this->contents,
+            function ($value, $key) {
+                return (is_numeric($key) == false);
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
     }
 }

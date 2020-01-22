@@ -22,7 +22,7 @@ class AwsS3Decorator extends AwsS3Adapter
         parent::__construct(
             $adapter->getClient(),
             $adapter->getBucket(),
-            $adapter->getPathPrefix(),
+            (string) $adapter->getPathPrefix(),
             $this->config
         );
     }

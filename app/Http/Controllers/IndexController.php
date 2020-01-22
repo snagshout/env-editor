@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\EnvFile\Laravel\Storage\AmazonStorage;
 use Illuminate\Http\Request;
 use App\EnvFile\EnvFileStorageInterface;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\EnvFileRequest;
 
 class IndexController extends Controller
 {
     /**
-     * @var EnvFileStorageInterface
+     * @var AmazonStorage
      */
     protected $storage;
 
     protected $request;
 
     protected $data = [];
+
 
     public function __construct(
         EnvFileStorageInterface $storage,

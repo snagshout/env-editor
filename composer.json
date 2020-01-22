@@ -65,6 +65,9 @@
         ],
         "serve": [
             "@php artisan serve"
+        ],
+        "stan": [
+            "./vendor/bin/phpstan analyse"
         ]
     }
 }
